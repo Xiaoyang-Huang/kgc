@@ -123,7 +123,7 @@ function init(level) {
 }
 
 canvas.addEventListener('click', function (e) {
-  if (game_over) return;
+  if (game_over || !waiting_count) return;
   create_ball(core.rotation, true)
   renderer.render(stage);
 });
