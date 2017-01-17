@@ -16,7 +16,7 @@ var game_over = false;
 
 core.beginFill(0xFFFFFF);
 core.drawCircle(0, 0, core_radius);
-core.x = 300;
+core.x = window.innerWidth / 2;
 core.y = 200;
 core.endFill();
 core.lineStyle(1,0xFFFFFF)
@@ -67,7 +67,7 @@ function check_collision(target){
 
 canvas.addEventListener('click', function (e) {
   if(game_over) return;
-  create_ball(core.rotation)
+  create_ball(core.rotation, true)
   renderer.render(stage);
 })
 
