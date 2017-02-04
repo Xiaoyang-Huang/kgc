@@ -8,7 +8,7 @@ var browserSync = require('browser-sync').create();
 
 var webpackConfig = {
   output:{
-    filename: 'index.js'
+    filename: 'script.js'
   },
   devtool: 'inline-source-map',
   module:{
@@ -34,7 +34,7 @@ gulp.task('default', function(){
 
 gulp.task('style', function(){
   gulp.src('./style/*.css')
-    .pipe(concat('index.css'))
+    .pipe(concat('style.css'))
     .pipe(gulp.dest('./www/dest/'))
     .pipe(browserSync.stream());
 })
