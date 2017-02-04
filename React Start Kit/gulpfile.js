@@ -40,7 +40,7 @@ gulp.task('style', function(){
 })
 
 gulp.task('script', function(){
-  gulp.src('./jsx/index.jsx')
+  gulp.src('./script/index.jsx')
     .pipe(webpack(webpackConfig))
     .pipe(gulp.dest('./www/dest/'))
     .pipe(browserSync.stream());
