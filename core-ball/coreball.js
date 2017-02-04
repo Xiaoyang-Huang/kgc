@@ -1,7 +1,10 @@
 var canvas = document.getElementById('main');
-var renderer = PIXI.autoDetectRenderer(window.innerWidth, window.innerHeight, {
-  view: canvas
-});
+var renderer = PIXI.autoDetectRenderer(
+  window.innerWidth, 
+  window.innerHeight, 
+  {
+    view: canvas
+  });
 
 var core_radius = 30;
 var ball_radius = 10;
@@ -10,10 +13,11 @@ var core = new PIXI.Container();
 var waiting = new PIXI.Container();
 var fps = 60;
 var ball_distance = 150;
-var existed_balls = []
-var index_offset = 0;
+var existed_balls = [];
 var game_over = false;
 
+var waiting_count;
+var speed;
 var level_data = [
   { "initCount": 3, "waitCount": 5, "speed": 10 },
   { "initCount": 4, "waitCount": 8, "speed": 9 },
@@ -23,8 +27,7 @@ var level_data = [
   { "initCount": 5, "waitCount": 5, "speed": 5 },
   { "initCount": 6, "waitCount": 7, "speed": 4 }
 ];
-var speed = 10;
-var waiting_count = 10;
+
 
 stage.addChild(core);
 stage.addChild(waiting);
@@ -116,11 +119,14 @@ function init(level) {
   waiting_count = data.waitCount;
   set_waiting(waiting_count);
 
-  var text = create_text(("0000" + level).substr(-2, 2), 32);
+  var text = create_text(("0000" + (level + 1)).substr(-2, 2), 32);
   text.x = core.x;
   text.y = core.y;
   stage.addChild(text);
 }
+
+var level = parseInt(localStorage.getItem('level')) || 0;
+init(level);
 
 canvas.addEventListener('click', function (e) {
   if (game_over || !waiting_count) return;
@@ -128,15 +134,20 @@ canvas.addEventListener('click', function (e) {
   renderer.render(stage);
 });
 
-init(3);
-
 (function renderFrame() {
   renderer.render(stage);
   var next_action
   if (game_over) {
-    next_action = function () { alert("Game Over!"); };
+    next_action = function () { 
+      alert("Game Over!"); 
+      location.href = "index.html";
+    };
   } else if (!waiting_count) {
-    next_action = function () { alert("Success!"); };
+    next_action = function () {
+      localStorage.setItem('level', level + 1);
+      alert("Success!"); 
+      location.href = "index.html";
+    };
   } else {
     core.rotation += Math.PI * 2 / fps / speed;
     next_action = function () { renderFrame(); };

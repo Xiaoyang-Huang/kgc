@@ -1,0 +1,15 @@
+{
+  "debugMode"     : 0,
+  "showFPS"       : false,
+  "frameRate"     : 60,
+  "id"            : "gameStage",
+  "renderMode"    : 0,
+  "engineDir"     : "/script/lib/cocos2d-html5/",
+  "modules"       : ["cocos2d"],
+  "jsList"        : [
+    "/script/src/resource.js",
+    "/script/src/game_scene.js",
+    "/script/src/game_layer.js",
+    "/script/src/item.js"
+  ]
+}
