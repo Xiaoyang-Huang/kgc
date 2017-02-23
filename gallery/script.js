@@ -12,8 +12,7 @@ function XyGallery(id, option) {
   option = Object.assign({}, defaultOption, option);
   console.log(option)
 
-  if (option.width * option.height != container.children.length) throw "width and height not match children length!";
-  container.style.width = (option.width - 1) * option.defaultWidth + option.activeHeight + 'px'
+  if (option.width && option.height && option.width * option.height != container.children.length) throw "width and height not match children length!";
 
   var lastRunTime = new Date(0);
   var runId = 0;
@@ -27,6 +26,8 @@ function XyGallery(id, option) {
       return;
     }
     lastRunTime = currentTime;
+
+    container.style.width = (option.width - 1) * option.defaultWidth + option.activeHeight + 'px'
     var cx = index % option.width;
     var cy = Math.floor(index / option.width);
     for (var x = 0, xl = option.width; x < xl; x++) {
@@ -61,7 +62,14 @@ function XyGallery(id, option) {
       activePicture(i);
     })
   })
+
   return {
-    active: activePicture
+    active: activePicture,
+    setSize: function(width, height){
+      if (width && height && width * height != container.children.length) throw "width and height not match children length!";
+      option.width = width;
+      option.height = height;
+      activePicture(0)
+    }
   }
 }
