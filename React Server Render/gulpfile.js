@@ -17,7 +17,22 @@ var webpackConfig = {
   devtool: 'inline-source-map',
   module:{
     loaders:[
-      {test: /\.jsx$/, loader: 'jsx-loader'}
+      {
+        test: /\.jsx$/,
+        exclude: /(node_modules|bower_components)/,
+        loader: 'babel-loader',
+        query: {
+          presets: ['es2015', 'react']
+        }
+      },
+      {
+        test: /\.js$/,
+        exclude: /(node_modules|bower_components)/,
+        loader: 'babel-loader',
+        query: {
+          presets: ['es2015']
+        }
+      }
     ]
   },
   resolve:{
@@ -40,20 +55,21 @@ gulp.task('script', function(){
 })
 
 
-gulp.task('serve', ['script'], function(){
-  express.run(['./index.js']);
-  gulp.start('script');
-  gulp.start('style');
+gulp.task('serve', ['script', 'style'], function(){
 
   gulpWatch(['script/**/*.jsx','script/**/*.js'], function(evt){
     gulp.start('script', function(){
-      express.notify(evt);   
+      express.run(['./index.js']);
+      express.notify(evt);
     });
   });
 
-  gulpWatch('./style/**/*.scss', function(evt){
+  gulpWatch('style/**/*.less', function(evt){
+    // gulp.stop('style');
     gulp.start('style', function(){
       express.notify(evt);   
     });
   });
+
+  express.run(['./index.js']);
 })
