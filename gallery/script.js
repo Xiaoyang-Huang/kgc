@@ -10,7 +10,6 @@ function XyGallery(id, option) {
   }
 
   option = Object.assign({}, defaultOption, option);
-  console.log(option)
 
   if (option.width && option.height && option.width * option.height != container.children.length) throw "width and height not match children length!";
 
