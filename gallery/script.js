@@ -11,7 +11,9 @@ function XyGallery(id, option) {
 
   option = Object.assign({}, defaultOption, option);
 
-  if (option.width && option.height && option.width * option.height != container.children.length) throw "width and height not match children length!";
+  if (width == undefined) throw "width not defined";
+  if (height == undefined) throw "height not defined";
+  if (width * height != container.children.length) throw "width and height not match children length!";
 
   var lastRunTime = new Date(0);
   var runId = 0;
@@ -63,8 +65,10 @@ function XyGallery(id, option) {
 
   return {
     active: activePicture,
-    setSize: function(width, height){
-      if (width && height && width * height != container.children.length) throw "width and height not match children length!";
+    setSize: function (width, height) {
+      if (width == undefined) throw "width not defined";
+      if (height == undefined) throw "height not defined";
+      if (width * height != container.children.length) throw "width and height not match children length!";
       option.width = width;
       option.height = height;
       activePicture(0)
