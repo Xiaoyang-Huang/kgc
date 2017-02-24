@@ -55,7 +55,6 @@ function XyGallery(id, option) {
   }
   activePicture(0);
 
-  var runId = 0;
   Array.prototype.forEach.call(container.children, function (o, i) {
     o.addEventListener('mouseenter', function (evt) {
       activePicture(i);
